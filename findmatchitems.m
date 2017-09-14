@@ -1,7 +1,8 @@
 %% find matched ESM&DRM pairs
 % rule:same person & year & month & day & drm time cover esm moment
-
-ids=union(mental.esm.ID,mental.esm.ID);
+load('mental');
+load('PandP');
+ids=intersect(esmid,drmid);
 ids(ids==41)=[];
 ids(ids==71)=[];
 esmtime=mental.esm.hour*60+mental.esm.min;
@@ -10,7 +11,9 @@ etime=mental.drm_2.end_h*60+mental.drm_2.end_m;
 matched2.id=[];
 matched2.month=[];
 matched2.day=[];
-matched2.time=[];
+matched2.esmtime=[];
+matched2.drmbtime=[];
+matched2.drmetime=[];
 for k=1:11
     eval(['matched2.Q',num2str(k+20),'=[];']);
 end
@@ -23,13 +26,42 @@ for i=1:length(mental.esm.year)
         matched2.id=[matched2.id,mental.esm.ID(i)];
         matched2.month=[matched2.month,mental.esm.month(i)];
         matched2.day=[matched2.day,mental.esm.day(i)];
-        matched2.time=[matched2.time,esmtime(i)];
+        matched2.esmtime=[matched2.esmtime,esmtime(i)];
+        matched2.drmbtime=[matched2.drmbtime,btime(index)];
+        matched2.drmetime=[matched2.drmetime,etime(index)];
         for k=1:11
-            eval(['match.Q',num2str(k+20),'=[match.Q',num2str(k+20),',mental.esm.Q',num2str(k+20),'(i)];']);
+            eval(['matched2.Q',num2str(k+20),'=[matched2.Q',num2str(k+20),',mental.esm.Q',num2str(k+20),'(i)];']);
         end
         for k=1:11
-            eval(['match.Q',num2str(k+64),'=[match.Q',num2str(k+64),',mental.drm_2.Q',num2str(k+64),'(index)];']);
+            eval(['matched2.Q',num2str(k+64),'=[matched2.Q',num2str(k+64),',mental.drm_2.Q',num2str(k+64),'(index)];']);
         end
     end
 end
+%% exclude participants
+ori_id=union(matched2.id,matched2.id);
+id_new=[];
+for i=1:length(ori_id)
+    if length(find(matched2.id==ori_id(i)))>5 && ~isempty(find(ids == ori_id(i), 1))
+        id_new=[id_new ori_id(i)];
+    end
+end
+index=[];
+for i=1:length(id_new)
+    index=[index,find(matched2.id== id_new(i))];
+end
+
+        matched2.id=matched2.id(index);
+        matched2.month=matched2.month(index);
+        matched2.day=matched2.day(index);
+        matched2.esmtime=matched2.esmtime(index);
+        matched2.drmbtime=matched2.drmbtime(index);
+        matched2.drmetime=matched2.drmetime(index);
+        for k=1:11
+            eval(['matched2.Q',num2str(k+20),'=matched2.Q',num2str(k+20),'(index);']);
+        end
+        for k=1:11
+            eval(['matched2.Q',num2str(k+64),'=matched2.Q',num2str(k+64),'(index);']);
+        end
+   matched2.idindex=id_new;
+    
 save match matched2

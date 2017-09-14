@@ -40,6 +40,15 @@ PandP.QA8=b;
 score=sum(PandP.QA8(:,3:13),2)+sum(PandP.QA8(:,15:30),2)+sum(PandP.QA8(:,32:36),2)+sum(PandP.QA8(:,38:46),2)+sum(PandP.QA8(:,48:49),2)+sum(PandP.QA8(:,51:52),2)+(4-PandP.QA8(:,14))+(4-PandP.QA8(:,31))+(4-PandP.QA8(:,37))+(4-PandP.QA8(:,47))+(4-PandP.QA8(:,50));
 PandP.TWS=[PandP.QA8(:,2) score];
 
+b=xlsread('preandpost',1);
+PandP.QA1=b';
+A=sum(PandP.QA1(3:7,:))+sum(6-PandP.QA1(8:11,:));
+C=sum(PandP.QA1(12:16,:))+sum(6-PandP.QA1(17:20,:));
+N=sum(PandP.QA1(21:25,:))+sum(6-PandP.QA1(26:28,:));
+O=sum(PandP.QA1(29:36,:))+sum(6-PandP.QA1(37:38,:));
+E=sum(PandP.QA1(39:43,:))+sum(6-PandP.QA1(44:46,:));
+PandP.BFI=[PandP.QA1(2,:)' O'/10 C'/9 E'/8 A'/9 N'/8];
+
 %% process follow up data
 n=29;
 [data,str]=xlsread('followup.xls');
@@ -84,7 +93,7 @@ end
    divscore=data(1:n,51:53);
    PandP.div=[ids divscore];
     
-save PandP PandP
+
 %% exclude participants
 ori_drmid=union(mental.drm_2.ID,mental.drm_2.ID);
 ori_esmid=union(mental.esm.ID,mental.esm.ID);
@@ -92,13 +101,14 @@ drmid=[];
 esmid=[];
 for i=1:length(ori_drmid)
     if length(find(mental.drm_2.ID==ori_drmid(i)))>10 && ~isempty(find(PandP.TWS(:,1)==ori_drmid(i))) && ~isempty( find(PandP.TWS(:,1)==ori_drmid(i))) && ~isempty(find(PandP.O(:,1)==ori_drmid(i))) &&~isempty(find(PandP.RAT(:,1)==ori_drmid(i))) &&~isempty(find(PandP.div(:,1)==ori_drmid(i)))
-        length(find(mental.drm_2.ID==ori_drmid(i)))
+%         length(find(mental.drm_2.ID==ori_drmid(i)))
         drmid=[drmid ori_drmid(i)];
     end
 end
 for i=1:length(ori_esmid)
     if length(find(mental.esm.ID==ori_esmid(i)))>10 && ~isempty(find(PandP.TWS(:,1)==ori_esmid(i))) &&~isempty(find(PandP.TWS(:,1)==ori_esmid(i))) &&~isempty(find(PandP.O(:,1)==ori_esmid(i))) &&~isempty(find(PandP.RAT(:,1)==ori_esmid(i))) &&~isempty(find(PandP.div(:,1)==ori_esmid(i)))
-        length(find(mental.esm.ID==ori_esmid(i)))
+%         length(find(mental.esm.ID==ori_esmid(i)))
         esmid=[esmid ori_esmid(i)];
     end
 end
+save PandP PandP esmid drmid
