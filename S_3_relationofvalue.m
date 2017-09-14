@@ -7,25 +7,25 @@ load('PandP');
 %% calculate individual r and delta_e
 n = length(matched2.idindex);
 r_ofvalue = zeros(12,n);
-trait = zeros(12, n);
+% trait = zeros(12, n);
 delta_e = zeros(12,n);
 for i = 1 : n
     index = find(matched2.id == matched2.idindex(i));
     r_ofvalue(1,i) = matched2.idindex(i);
     delta_e(1,i) = matched2.idindex(i);
-      trait(1,i) = matched2.idindex(i);
+%       trait(1,i) = matched2.idindex(i);
     for k = 1 : 11
                 eval(['esm = matched2.Q',num2str(k+20),'(index);']);
                 eval(['drm = matched2.Q',num2str(k+64),'(index);']);   
                 r_ofvalue(k+1, i) = corr(esm',drm');
                 delta_e(k+1, i) = mean(esm-drm);
     end
-    trait(2,i) = PandP.TWS(find(PandP.TWS(:,1) == matched2.idindex(i)),2);
-    trait(3,i) = PandP.O(find(PandP.O(:,1) == matched2.idindex(i)),2);
-    trait(4,i) = PandP.RAT(find(PandP.RAT(:,1) == matched2.idindex(i)),2);
-    trait(5:7,i) = PandP.div(find(PandP.div(:,1) == matched2.idindex(i)),2:4)';
-    trait(8:12,i) = PandP.BFI(find(PandP.BFI(:,1) == matched2.idindex(i)),2:6)';
-    
+%     trait(2,i) = PandP.TWS(find(PandP.TWS(:,1) == matched2.idindex(i)),2);
+%     trait(3,i) = PandP.O(find(PandP.O(:,1) == matched2.idindex(i)),2);
+%     trait(4,i) = PandP.RAT(find(PandP.RAT(:,1) == matched2.idindex(i)),2);
+%     trait(5:7,i) = PandP.div(find(PandP.div(:,1) == matched2.idindex(i)),2:4)';
+%     trait(8:12,i) = PandP.BFI(find(PandP.BFI(:,1) == matched2.idindex(i)),2:6)';
+%     
 end
 %% examnation of correlation coefficient
 z_r_ofvalue = 1/2 * log( (1 + r_ofvalue(2:end, :)) ./ (1 - r_ofvalue(2:end, :)) );

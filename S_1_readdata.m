@@ -100,13 +100,13 @@ ori_esmid=union(mental.esm.ID,mental.esm.ID);
 drmid=[];
 esmid=[];
 for i=1:length(ori_drmid)
-    if length(find(mental.drm_2.ID==ori_drmid(i)))>10 && ~isempty(find(PandP.TWS(:,1)==ori_drmid(i))) && ~isempty( find(PandP.TWS(:,1)==ori_drmid(i))) && ~isempty(find(PandP.O(:,1)==ori_drmid(i))) &&~isempty(find(PandP.RAT(:,1)==ori_drmid(i))) &&~isempty(find(PandP.div(:,1)==ori_drmid(i)))
+    if length(find(mental.drm_2.ID==ori_drmid(i)))>10 && ~isempty(find(PandP.TWS(:,1)==ori_drmid(i))) && ~isempty(find(PandP.O(:,1)==ori_drmid(i))) &&~isempty(find(PandP.RAT(:,1)==ori_drmid(i))) &&~isempty(find(PandP.div(:,1)==ori_drmid(i)))
 %         length(find(mental.drm_2.ID==ori_drmid(i)))
         drmid=[drmid ori_drmid(i)];
     end
 end
 for i=1:length(ori_esmid)
-    if length(find(mental.esm.ID==ori_esmid(i)))>10 && ~isempty(find(PandP.TWS(:,1)==ori_esmid(i))) &&~isempty(find(PandP.TWS(:,1)==ori_esmid(i))) &&~isempty(find(PandP.O(:,1)==ori_esmid(i))) &&~isempty(find(PandP.RAT(:,1)==ori_esmid(i))) &&~isempty(find(PandP.div(:,1)==ori_esmid(i)))
+    if length(find(mental.esm.ID==ori_esmid(i)))>10 && ~isempty(find(PandP.TWS(:,1)==ori_esmid(i))) &&~isempty(find(PandP.O(:,1)==ori_esmid(i))) &&~isempty(find(PandP.RAT(:,1)==ori_esmid(i))) &&~isempty(find(PandP.div(:,1)==ori_esmid(i)))
 %         length(find(mental.esm.ID==ori_esmid(i)))
         esmid=[esmid ori_esmid(i)];
     end

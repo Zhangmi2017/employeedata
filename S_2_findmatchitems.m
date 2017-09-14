@@ -41,7 +41,7 @@ end
 ori_id=union(matched2.id,matched2.id);
 id_new=[];
 for i=1:length(ori_id)
-    if length(find(matched2.id==ori_id(i)))>5 && ~isempty(find(ids == ori_id(i), 1))
+    if length(find(matched2.id==ori_id(i)))>5 %&& ~isempty(find(ids == ori_id(i), 1))
         id_new=[id_new ori_id(i)];
     end
 end
