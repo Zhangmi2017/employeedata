@@ -38,6 +38,15 @@ for k = 1 : 11
     df_matched(1,k) = stats.df;
     sd_matched(1,k) = stats.sd;
 end
+x = matched2.idindex;
+y = {'relaxed', 'tired', 'happy', 'stressed', 'concentrated', 'sleepy', 'active', 'angry', 'depressed', 'interested'};
+figure;
+diff1=z_r_esmcorr-z_r_drmcorr;
+diff1(7,:)=[];
+imagesc(diff1);
+set(gca,'xticklabel', x, 'FontSize',16);
+set(gca,'yticklabel', y, 'FontSize',16);
+colorbar;
 
 %%  compare of creative-emotion correlations from esm and drm in unmatched data
 ids = intersect(esmid, drmid);
@@ -76,3 +85,13 @@ for k = 1 : 11
     df_unmatched(1,k) = stats.df;
     sd_unmatched(1,k) = stats.sd;
 end
+x = ids;
+y = {'relaxed', 'tired', 'happy', 'stressed', 'concentrated', 'sleepy', 'active', 'angry', 'depressed', 'interested'};
+figure;
+diff2=z_r2_esmcorr-z_r2_drmcorr;
+diff2(7,:)=[];
+imagesc(diff2);
+% set(gca,'xticklabel', x, 'FontSize',16);
+set(gca,'yticklabel', y, 'FontSize',16);
+colorbar;
+save corresult2  r_esmcorr  r_drmcorr  r2_esmcorr  r2_drmcorr

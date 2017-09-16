@@ -36,7 +36,7 @@ t = zeros(1, 11);
 df = zeros(1, 11);
 sd = zeros(1, 11);
 for k = 1 : 11
-[h(1,k), p(1,k), ci(:,k), stats] = ttest(z_r_ofvalue(k,:)');
+[h(1,k), p(1,k), ci(:,k), stats] = ttest(z_r_ofvalue(k,:)', 0,'tail', 'right');
 t(1,k) = stats.tstat;
 df(1,k) = stats.df;
 sd(1,k) = stats.sd;
@@ -46,8 +46,8 @@ figure;
 x = matched2.idindex;
 y = {'relaxed', 'tired', 'happy', 'stressed', 'concentrated', 'sleepy', 'creative', 'active', 'angry', 'depressed', 'interested'};
 imagesc(r_ofvalue(2 : end, :));
-set(gca,'xticklabel', x);
-set(gca,'yticklabel', y);
+set(gca,'xticklabel', x, 'FontSize',16);
+set(gca,'yticklabel', y, 'FontSize',16);
 colorbar;
 
 %% examnation of delta_e
@@ -67,7 +67,7 @@ end
 % color map presentation
 figure;
 imagesc(delta_e(2 : end, :));
-set(gca,'xticklabel', x);
-set(gca,'yticklabel', y);
+set(gca,'xticklabel', x, 'FontSize',16);
+set(gca,'yticklabel', y, 'FontSize',16);
 colorbar;
-
+save corresult1 r_ofvalue
